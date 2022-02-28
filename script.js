@@ -1,20 +1,15 @@
-let prevOperand;
-let nextOperand;
-let operator;
-
 let bigDisplay = document.getElementById("big-display");
 let smallDisplay = document.getElementById("small-display");
 let resultDisplay = document.getElementById("result");
 
-let buttons = document.getElementsByClassName("btn");
 let numbersBtn = document.querySelectorAll(".btnNum");
 let operatorBtn = document.querySelectorAll(".btnOperator");
 let equalBtn = document.querySelector("#equal");
 let allClear = document.querySelector("#ac");
 let backSpace = document.querySelector("#delete");
 
-let display1 = "";
-let display2 = "";
+let previousOperand = "";
+let currentOperand = "";
 let result = null;
 let lastOperator = "";
 let haveDecimal = false;
@@ -22,144 +17,63 @@ let haveDecimal = false;
 numbersBtn.forEach( number => {
     number.addEventListener('click', (e) => {
         if (e.target.innerText === "." && !haveDecimal) {
-            haveDecimal = true;
+            //if user click decimal and decimal wasn't clicked previously then make the havDecimal true
+            haveDecimal = true;   
         }else if (e.target.innerText === "." && haveDecimal) {
-            return;
+            return;  // if already decimal clicked then do nothing
+        }else if (bigDisplay.innerText != "0") {
+            currentOperand += e.target.innerText;
+            bigDisplay.innerText = currentOperand; 
+        }else {
+            currentOperand = e.target.innerText;
+            bigDisplay.innerText = currentOperand;  
         }
-        display2 += e.target.innerText;
-        bigDisplay.innerText = display2;
     })
 })
 
 
 operatorBtn.forEach( operator => {
     operator.addEventListener('click', (e) => {
-        if (!display2) return;
+        if (!currentOperand) return;
         haveDecimal = false;
         const operatorName = e.target.innerText;
-        if (display1 && display2 && operatorName) {
+        if (previousOperand && currentOperand && operatorName) {
             operate();
         }else {
-            result = parseFloat(display2);
+            result = parseFloat(currentOperand);
 
         }
-        clearVar(operatorName);
+        populateDisplay(operatorName);
         lastOperator = operatorName;
     })
 });
 
-function clearVar(name = ""){
-    display1 += display2 + " " + name + " ";
-    smallDisplay.innerText = display1;
+function populateDisplay(operator = ""){
+    previousOperand += currentOperand + " " + operator + " ";
+    smallDisplay.innerText = previousOperand;
     bigDisplay.innerText = "0";
-    display2 = "";
+    currentOperand = "";
     resultDisplay.innerText = result;
 }
 
 
-const backSpaceFunction = function () {
-    console.log("clicked DEl");
-
-}
-
-const allClearFunction = function () {
-    bigDisplay.innerText = "0";
-    smallDisplay.innerText = "";
-}
-
-
-// for (let i = 0; i < buttons.length; i++) {
-//     let btn = buttons[i];
-
-//     btn.addEventListener("click", (e) => {
-//         populateDisplay(e.target.innerText)
-//     })
-
-// }
-
-
-// const populateDisplay = function (input) {
-
-//     // display.innerText = displayNum;
-
-//     prevOperand = bigDisplay.innerText;
-
-//     if (input == "AC") {
-//         allClear();
-
-//     } else if (input == "DEL") {
-//         backSpace();
-
-//     } else if (input == "+" || input == "-" || input == "x" || input == "/") {
-//         operator = input;
-//         prevOperand = ~~bigDisplay.innerText;
-//         smallDisplay.innerText = prevOperand + " " + input;
-//         bigDisplay.innerText = "0";
-
-//         console.log(prevOperand, operator, nextOperand);
-
-
-//     } else if (input == ".") {
-
-
-//     } else if (input == "=") {
-//         nextOperand = ~~bigDisplay.innerText
-//         let result = operate(prevOperand, nextOperand, operator);
-//         console.log(result);
-//         bigDisplay.innerText = result;
-
-//         smallDisplay.innerText = prevOperand + " " + operator + " " + nextOperand + " " + "=";
-//     }
-//     else if (prevOperand != "0") {
-//         bigDisplay.innerText = prevOperand + input
-//     } else {
-//         bigDisplay.innerText = input
-//     }
-// }
-
-
-
-
-console.log(prevOperand, operator, nextOperand);
-
-//-----------
-// const add = function (num1, num2) {
-//     return num1 + num2;
-// };
-
-// const sub = function (num1, num2) {
-//     return num1 - num2
-
-// };
-
-// const multiply = function (num1, num2) {
-//     return num1 * num2
-
-// };
-
-// const divide = function (num1, num2) {
-//     return num1 / num2
-
-// };
-
-
-//------------------
 const operate = function () {
+
     switch (lastOperator) {
         case "+":
-            result = parseFloat(result) + parseFloat(display2);
+            result = parseFloat(result) + parseFloat(currentOperand);
             break;
 
         case "-":
-            result = parseFloat(result) - parseFloat(display2);
+            result = parseFloat(result) - parseFloat(currentOperand);
             break;
 
         case "x":
-            result = parseFloat(result) * parseFloat(display2);
+            result = parseFloat(result) * parseFloat(currentOperand);
             break;
 
         case "/":
-            result = parseFloat(result) / parseFloat(display2);
+            result = currentOperand == "0" ? "Keep it real!" : parseFloat(result) / parseFloat(currentOperand);
             break;
         default:
             return null;
@@ -167,14 +81,14 @@ const operate = function () {
 }
 
 equalBtn.addEventListener("click", e => {
-    if(!display1 || !display2) return;
+    if(!previousOperand || !currentOperand) return;
     haveDot = false;
     operate()
-    clearVar();
+    populateDisplay();
     bigDisplay.innerText = result;
     resultDisplay.innerText = ''
-    display2 = result;
-    display1 = '';
+    currentOperand = result;
+    previousOperand = '';
 })
 
 
@@ -182,8 +96,8 @@ allClear.addEventListener('click', () => {
     smallDisplay.innerText = "";
     bigDisplay.innerText = "0";
     resultDisplay.innerText = "";
-    display1 = "";
-    display2 = "";
+    previousOperand = "";
+    currentOperand = "";
     result = "";
 })
 
@@ -194,7 +108,7 @@ backSpace.addEventListener('click', () => {
         console.log(bigDisplay.textContent);
 })
 
-
+//Keyboard Functionality
 window.addEventListener("keydown", e => {
     if (
         
