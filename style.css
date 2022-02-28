@@ -1,0 +1,130 @@
+:root {
+    --bg: #000000;
+    --button-gray: #333333;
+    --button-light-gray: #a5a5a5;
+    --box-shadow: rgba(254, 150, 5, 0.76);
+    --button-orange: #fe9505;
+    --font-color: #fffdfa;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+
+}
+
+body {
+    background-color: var(--button-gray);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+}
+
+.container {
+    width: 350px;
+    height: 580px;
+    background-color: var(--bg);
+    padding: 10px;
+    border-radius: 5px;
+    /* box-shadow: var(--box-shadow) 0px 8px 24px,
+    var(--box-shadow) 0px 16px 56px,
+    var(--box-shadow) 0px 24px 80px; */
+    box-shadow: var(--button-gray) 0px 2px 4px;
+}
+
+.btn {
+    width: 70px;
+    height: 70px;
+    border: none;
+    border-radius: 50%;
+    /* flex-grow: 1; */
+    margin: 5px;
+       font-size: 30px;
+       font-weight: bold;
+}
+
+.btn:hover{
+    transform: scale(1.08);
+    cursor: pointer;
+
+}
+
+.display {
+    height: 150px;
+    color: var(--font-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 20px 5px;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+    justify-content: space-between;
+}
+
+#small-display {
+    font-size: 25px;
+    color: var(--button-orange);
+    /* background-color: aqua; */
+    /* word-wrap: break-word;
+    word-break: break-all; */
+}
+
+#big-display {
+    /* height: 100px; */
+    font-size: 45px;
+    /* word-wrap: break-word;
+    word-break: break-all;
+    background-color: #fe9505;
+    direction: rtl; */
+
+}
+
+#top-display {
+    height: 20px;
+
+}
+#display {
+
+}
+
+.row{
+    /* background-color: var(--button-light-gray); */
+    display: flex;
+    justify-content: space-between;
+}
+
+#delete {
+    width: 150px;
+    border-radius: 40px;
+
+}
+
+#zero {
+    width: 150px;
+    border-radius: 40px;
+}
+.row .btn:last-child{
+    background-color: var(--button-orange);
+    color: var(--font-color);
+}
+
+.row1 .btn {
+    background-color: var(--button-light-gray);
+    color: rgb(32, 24, 24);
+}
+.row2 .btn, .row3 .btn, .row4 .btn, .row5 .btn {
+     background-color: var(--button-gray);
+     color: var(--font-color);
+}
+
