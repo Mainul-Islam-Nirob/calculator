@@ -16,19 +16,23 @@ let haveDecimal = false;
 
 numbersBtn.forEach( number => {
     number.addEventListener('click', (e) => {
-        if (e.target.innerText === "." && !haveDecimal) {
-            //if user click decimal and decimal wasn't clicked previously then make the havDecimal true
-            haveDecimal = true;   
-        }else if (e.target.innerText === "." && haveDecimal) {
-            return;  // if already decimal clicked then do nothing
-        }else if(bigDisplay.innerText.length <= 13) {
+        if(bigDisplay.innerText.length <= 13) {
+            if (e.target.innerText === "." && !haveDecimal) {
+                //if user click decimal and decimal wasn't clicked previously then make the havDecimal true
+                haveDecimal = true;
+            } else if (e.target.innerText === "." && haveDecimal) {
+                return;  // if already decimal clicked then do nothing
+            } 
+            
+            //if there is a zero in big display by default then the input number wii replace the zero otherwise input number will concat with display number
             if (bigDisplay.innerText != "0") {
                 currentOperand += e.target.innerText;
-                bigDisplay.innerText = currentOperand;
             } else {
                 currentOperand = e.target.innerText;
-                bigDisplay.innerText = currentOperand;
             }
+
+            bigDisplay.innerText = currentOperand;
+
         }else return;
     })
 })
@@ -89,7 +93,7 @@ const operate = function () {
 
 equalBtn.addEventListener("click", e => {
     if(!previousOperand || !currentOperand) return;
-    haveDot = false;
+    haveDecimal = false;
     operate()
     populateDisplay();
     bigDisplay.innerText = result;
