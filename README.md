@@ -11,10 +11,7 @@ Solution for the [PROJECT: CALCULATOR](https://www.theodinproject.com/paths/foun
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Image Credit](#image-credit)
 
 ### Project-Requirement
 1. The calculator should contain some basic functions for all of the basic math operators.
@@ -31,10 +28,10 @@ Solution for the [PROJECT: CALCULATOR](https://www.theodinproject.com/paths/foun
 
 ### Solution Screenshot
 The final output:
-![Desktop-view](./final-look.png))
+![Desktop-view](./final-look.png)
 
 ### Links
-Live Site URL: [Live site of the challenge hosted here](#)
+Live Site URL: [Live site of the challenge hosted here](https://mainul-islam-nirob.github.io/calculator/)
 
 ## My process
 Hello, this is my 5th project here in The Odin Project. It's a basic calculator. I've tried to make it look similar to apple calculator
