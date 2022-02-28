@@ -21,13 +21,15 @@ numbersBtn.forEach( number => {
             haveDecimal = true;   
         }else if (e.target.innerText === "." && haveDecimal) {
             return;  // if already decimal clicked then do nothing
-        }else if (bigDisplay.innerText != "0") {
-            currentOperand += e.target.innerText;
-            bigDisplay.innerText = currentOperand; 
-        }else {
-            currentOperand = e.target.innerText;
-            bigDisplay.innerText = currentOperand;  
-        }
+        }else if(bigDisplay.innerText.length <= 13) {
+            if (bigDisplay.innerText != "0") {
+                currentOperand += e.target.innerText;
+                bigDisplay.innerText = currentOperand;
+            } else {
+                currentOperand = e.target.innerText;
+                bigDisplay.innerText = currentOperand;
+            }
+        }else return;
     })
 })
 
@@ -45,7 +47,6 @@ operatorBtn.forEach( operator => {
         }
         populateDisplay(operatorName);
         lastOperator = operatorName;
-        console.log(lastOperator);
     })
 });
 
