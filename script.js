@@ -35,18 +35,20 @@ numbersBtn.forEach( number => {
 operatorBtn.forEach( operator => {
     operator.addEventListener('click', (e) => {
         if (!currentOperand) return;
+
         haveDecimal = false;
         const operatorName = e.target.innerText;
         if (previousOperand && currentOperand && operatorName) {
             operate();
         }else {
             result = parseFloat(currentOperand);
-
         }
         populateDisplay(operatorName);
         lastOperator = operatorName;
+        console.log(lastOperator);
     })
 });
+
 
 function populateDisplay(operator = ""){
     previousOperand += currentOperand + " " + operator + " ";
@@ -70,6 +72,10 @@ const operate = function () {
 
         case "x":
             result = parseFloat(result) * parseFloat(currentOperand);
+            break;
+
+        case "%":
+            result = parseFloat(result) % parseFloat(currentOperand);
             break;
 
         case "/":
@@ -102,10 +108,19 @@ allClear.addEventListener('click', () => {
 })
 
 backSpace.addEventListener('click', () => {
-    bigDisplay.textContent = bigDisplay.textContent
-        .toString()
-        .slice(0, -1)
-        console.log(bigDisplay.textContent);
+    if (bigDisplay.innerText != "0") {
+        let newCurrentOperand = bigDisplay.textContent
+            .toString()
+            .slice(0, -1)
+
+        bigDisplay.innerText = newCurrentOperand;
+        currentOperand = newCurrentOperand;
+    }
+
+    if (bigDisplay.innerText == "") {
+        bigDisplay.innerText = "0"
+    }
+    
 })
 
 //Keyboard Functionality
@@ -128,13 +143,18 @@ window.addEventListener("keydown", e => {
     } else if (
         e.key === "+" ||
         e.key === "-" ||
-        e.key === "/" 
+        e.key === "/" ||
+        e.key === "%"
     ){
         clickOperator(e.key);
     }else if(e.key === "*"){
         clickOperator("x");
     }else if(e.key === "Enter" || e.key === "="){
         clickEqual();
+    } else if (e.key === "Delete") {
+        clickAC();
+    } else if (e.key === "Backspace") {
+        clickBackSpace();
     }
 })
 
@@ -154,6 +174,13 @@ function clickOperator(key) {
     })
 }
 
-function clickEqual(key) {
+function clickEqual() {
     equalBtn.click();
+}
+
+function clickAC() {
+    allClear.click();
+} 
+function clickBackSpace() {
+    backSpace.click();
 }

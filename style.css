@@ -19,6 +19,20 @@ html {
 
 }
 
+.disable-select {
+    user-select: none;
+    /* supported by Chrome and Opera */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+}
+
+
 body {
     background-color: var(--button-gray);
     width: 100vw;
@@ -123,12 +137,6 @@ body {
     /* background-color: var(--button-light-gray); */
     display: flex;
     justify-content: space-between;
-}
-
-#delete {
-    width: 150px;
-    border-radius: 40px;
-
 }
 
 #zero {
